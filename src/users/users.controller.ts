@@ -1,7 +1,8 @@
 import { Controller } from '@nestjs/common';
-import { Get, Param } from '@nestjs/common/decorators/http'; 
-import { User } from './user.interface';
+import { Body, Get, Param, Post, Put } from '@nestjs/common/decorators/http'; 
+import User from './entities/user.entity';
 import { UsersService } from './users.service';
+import CreateUserDto from './dto/create-user.dto';
 
 @Controller('users')
 export class UsersController {
@@ -13,6 +14,16 @@ export class UsersController {
        const user = await this.userService.findById(id);
        console.log(user)
        return user;
+    }
+
+    @Post()
+    async createUser(@Body() createUserDto: CreateUserDto)  {
+        this.userService.createUser(createUserDto.userDetails);
+    }
+
+    @Put("/:id")
+    async updateUser( @Param('id') id: number, @Body() updateUserDto) {
+        this.userService.updateUser(id, updateUserDto);
     }
 
 }
