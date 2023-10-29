@@ -36,3 +36,6 @@ lerna-debug.log*
 
 
 .env
+
+#  for purposes of the demonstration, I don't need migrations
+prisma/migrations/
